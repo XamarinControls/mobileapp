@@ -7,6 +7,7 @@ using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.Plugin.Color.Platforms.Ios;
 using Toggl.Daneel.Extensions;
 using Toggl.Daneel.Extensions.Reactive;
+using Toggl.Daneel.Services;
 using Toggl.Foundation;
 using Toggl.Foundation.MvvmCross.Extensions;
 using Toggl.Foundation.MvvmCross.Helper;
@@ -53,9 +54,8 @@ namespace Toggl.Daneel.ViewControllers
             SignUpForFreeLabel.Text = Resources.SignUpTitle;
 
             NavigationController.NavigationBarHidden = true;
-            PasswordManagerButton.Hidden = UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad
-                ? true
-                : !ViewModel.IsPasswordManagerAvailable;
+            ((OnePasswordServiceIos)ViewModel.PasswordManagerService).SetSourceView(PasswordManagerButton);
+            PasswordManagerButton.Hidden = !ViewModel.IsPasswordManagerAvailable;
 
             UIKeyboard.Notifications.ObserveWillShow(KeyboardWillShow);
             UIKeyboard.Notifications.ObserveWillHide(KeyboardWillHide);

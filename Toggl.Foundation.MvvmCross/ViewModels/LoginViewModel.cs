@@ -1,5 +1,4 @@
 using System;
-using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
@@ -17,6 +16,7 @@ using Toggl.Multivac;
 using Toggl.Multivac.Extensions;
 using Toggl.PrimeRadiant.Settings;
 using Toggl.Ultrawave.Exceptions;
+using System.Linq;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
@@ -35,12 +35,12 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private readonly IAnalyticsService analyticsService;
         private readonly IOnboardingStorage onboardingStorage;
         private readonly IMvxNavigationService navigationService;
-        private readonly IPasswordManagerService passwordManagerService;
         private readonly IErrorHandlingService errorHandlingService;
         private readonly ILastTimeUsageStorage lastTimeUsageStorage;
         private readonly ITimeService timeService;
         private readonly ISchedulerProvider schedulerProvider;
         private readonly IRxActionFactory rxActionFactory;
+        public readonly IPasswordManagerService PasswordManagerService;
 
         private IDisposable loginDisposable;
 
@@ -97,7 +97,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             this.navigationService = navigationService;
             this.errorHandlingService = errorHandlingService;
             this.lastTimeUsageStorage = lastTimeUsageStorage;
-            this.passwordManagerService = passwordManagerService;
+            this.PasswordManagerService = passwordManagerService;
             this.schedulerProvider = schedulerProvider;
 
             var emailObservable = emailSubject.Select(email => email.TrimmedEnd());
@@ -215,7 +215,6 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             return navigationService.Navigate<SignupViewModel, CredentialsParameter>(parameter);
         }
 
-
         private async Task forgotPassword()
         {
             if (isLoadingSubject.Value) return;
@@ -229,12 +228,12 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
 
         private async Task startPasswordManager()
         {
-            if (!passwordManagerService.IsAvailable) return;
+            if (!PasswordManagerService.IsAvailable) return;
             if (isLoadingSubject.Value) return;
 
             analyticsService.PasswordManagerButtonClicked.Track();
 
-            var loginInfo = await passwordManagerService.GetLoginInformation();
+            var loginInfo = await PasswordManagerService.GetLoginInformation();
 
             emailSubject.OnNext(loginInfo.Email);
             if (!emailSubject.Value.IsValid) return;
