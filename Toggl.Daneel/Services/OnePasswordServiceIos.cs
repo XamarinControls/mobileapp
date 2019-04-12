@@ -32,9 +32,9 @@ namespace Toggl.Daneel.Services
                 var presenter = IosDependencyContainer.Instance.ViewPresenter;
 
                 OnePasswordExtension.SharedExtension.FindLoginForURLString(
-                    "https://www.toggl.com", 
+                    "https://www.toggl.com",
                     presenter.MasterNavigationController,
-                    sourceView, 
+                    sourceView,
                     getOnePasswordHandler(observer)
                 );
 
