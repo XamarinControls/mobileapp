@@ -53,7 +53,9 @@ namespace Toggl.Daneel.ViewControllers
             SignUpForFreeLabel.Text = Resources.SignUpTitle;
 
             NavigationController.NavigationBarHidden = true;
-            PasswordManagerButton.Hidden = !ViewModel.IsPasswordManagerAvailable;
+            PasswordManagerButton.Hidden = UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad
+                ? true
+                : !ViewModel.IsPasswordManagerAvailable;
 
             UIKeyboard.Notifications.ObserveWillShow(KeyboardWillShow);
             UIKeyboard.Notifications.ObserveWillHide(KeyboardWillHide);
