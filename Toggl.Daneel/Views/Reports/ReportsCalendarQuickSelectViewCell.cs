@@ -1,12 +1,9 @@
 ﻿using System;
 using Foundation;
-using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding.Views;
 using MvvmCross.Plugin.Color.Platforms.Ios;
-using Toggl.Foundation.MvvmCross.Converters;
-using Toggl.Foundation.MvvmCross.Helper;
-using Toggl.Foundation.MvvmCross.Parameters;
-using Toggl.Foundation.MvvmCross.ViewModels.ReportsCalendar.QuickSelectShortcuts;
+using Toggl.Core.UI.Helper;
+using Toggl.Core.UI.Parameters;
+using Toggl.Core.UI.ViewModels.ReportsCalendar.QuickSelectShortcuts;
 using UIKit;
 
 namespace Toggl.Daneel.Views.Reports

@@ -10,32 +10,33 @@ using MvvmCross.Plugin.Color.Platforms.Ios;
 using Toggl.Daneel.ExtensionKit;
 using Toggl.Daneel.Extensions;
 using Toggl.Daneel.Extensions.Reactive;
+using Toggl.Daneel.Presentation;
 using Toggl.Daneel.Presentation.Attributes;
 using Toggl.Daneel.Suggestions;
 using Toggl.Daneel.Views;
 using Toggl.Daneel.ViewSources;
-using Toggl.Foundation;
-using Toggl.Foundation.Analytics;
-using Toggl.Foundation.MvvmCross.Collections;
-using Toggl.Foundation.MvvmCross.Extensions;
-using Toggl.Foundation.MvvmCross.Helper;
-using Toggl.Foundation.MvvmCross.Onboarding.MainView;
-using Toggl.Foundation.MvvmCross.ViewModels;
-using Toggl.Foundation.MvvmCross.ViewModels.TimeEntriesLog;
-using Toggl.Foundation.MvvmCross.ViewModels.TimeEntriesLog.Identity;
-using Toggl.Multivac.Extensions;
-using Toggl.PrimeRadiant.Extensions;
-using Toggl.PrimeRadiant.Onboarding;
-using Toggl.PrimeRadiant.Settings;
+using Toggl.Core;
+using Toggl.Core.Analytics;
+using Toggl.Core.UI.Collections;
+using Toggl.Core.UI.Extensions;
+using Toggl.Core.UI.Helper;
+using Toggl.Core.UI.Onboarding.MainView;
+using Toggl.Core.UI.ViewModels;
+using Toggl.Core.UI.ViewModels.TimeEntriesLog;
+using Toggl.Core.UI.ViewModels.TimeEntriesLog.Identity;
+using Toggl.Shared.Extensions;
+using Toggl.Storage.Extensions;
+using Toggl.Storage.Onboarding;
+using Toggl.Storage.Settings;
 using UIKit;
-using static Toggl.Foundation.MvvmCross.Helper.Animation;
+using static Toggl.Core.UI.Helper.Animation;
 
 namespace Toggl.Daneel.ViewControllers
 {
     using MainLogSection = AnimatableSectionModel<DaySummaryViewModel, LogItemViewModel, IMainLogKey>;
 
     [TabPresentation]
-    public partial class MainViewController : ReactiveViewController<MainViewModel>
+    public partial class MainViewController : ReactiveViewController<MainViewModel>, IScrollableToTop
     {
         private const float showCardDelay = 0.1f;
 
@@ -443,6 +444,11 @@ namespace Toggl.Daneel.ViewControllers
                 .Where(visible => !visible)
                 .Subscribe(_ => hideTimeEntryCard())
                 .DisposedBy(disposeBag);
+        }
+
+        public void ScrollToTop()
+        {
+            TimeEntriesLogTableView.SetContentOffset(CGPoint.Empty, true);
         }
 
         private void showHideRatingView(bool shouldShow)

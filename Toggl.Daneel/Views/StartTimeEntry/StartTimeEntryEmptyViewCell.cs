@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Globalization;
-using Accelerate;
 using Foundation;
-using MvvmCross.Binding.BindingContext;
-using MvvmCross.Platforms.Ios.Binding.Views;
-using MvvmCross.Converters;
 using MvvmCross.Plugin.Color.Platforms.Ios;
 using Toggl.Daneel.Cells;
-using Toggl.Foundation.Autocomplete.Suggestions;
-using Toggl.Foundation.MvvmCross.Helper;
+using Toggl.Core.Autocomplete.Suggestions;
+using Toggl.Core.UI.Helper;
 using UIKit;
 
 namespace Toggl.Daneel.Views
