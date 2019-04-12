@@ -160,7 +160,7 @@ private TemporaryFileTransformation GetIosAppDelegateTransformation()
 {
     const string path = "Toggl.Daneel/Startup/AppDelegate.cs";
     var adjustToken = EnvironmentVariable("TOGGL_ADJUST_APP_TOKEN");
-    string appCenterId;
+    string appCenterId = "";
 
     if (target == "Build.Release.iOS.AdHoc")
     {
@@ -458,7 +458,7 @@ private TemporaryFileTransformation GetAndroidSplashScreenTransformation()
 private TemporaryFileTransformation GetAndroidTogglApplicationTransformation()
 {
     const string path = "Toggl.Droid/Startup/TogglApplication.cs";
-    string appCenterId; 
+    string appCenterId = "";
 
     if (target == "Build.Release.Android.AdHoc")
     {
