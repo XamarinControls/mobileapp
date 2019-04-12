@@ -55,7 +55,7 @@ namespace Toggl.Droid.Views.EditDuration
         private WheelUpdateType updateType;
         private double editBothAtOnceStartTimeAngleOffset;
 
-        private int numberOfFullLoops => (int) ((EndTime - StartTime).TotalMinutes / MinutesInAnHour);
+        private int numberOfFullLoops => Math.Max(0, (int)((EndTime - StartTime).TotalMinutes / MinutesInAnHour));
         private bool isFullCircle => numberOfFullLoops >= 1;
 
         private Color backgroundColor
