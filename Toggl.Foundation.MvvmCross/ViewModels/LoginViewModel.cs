@@ -16,7 +16,6 @@ using Toggl.Multivac;
 using Toggl.Multivac.Extensions;
 using Toggl.PrimeRadiant.Settings;
 using Toggl.Ultrawave.Exceptions;
-using System.Linq;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
@@ -40,7 +39,9 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private readonly ITimeService timeService;
         private readonly ISchedulerProvider schedulerProvider;
         private readonly IRxActionFactory rxActionFactory;
-        public readonly IPasswordManagerService PasswordManagerService;
+
+        public IPasswordManagerService PasswordManagerService { get; }
+
 
         private IDisposable loginDisposable;
 
