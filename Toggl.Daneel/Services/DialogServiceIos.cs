@@ -87,6 +87,16 @@ namespace Toggl.Daneel.Services
                     observer.OnCompleted();
                 });
 
+                if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
+                {
+                    var extraCancelAction = UIAlertAction.Create(cancelText, UIAlertActionStyle.Cancel, _ =>
+                    {
+                        observer.OnNext(false);
+                        observer.OnCompleted();
+                    });
+                    actionSheet.AddAction(extraCancelAction);
+                }
+
                 actionSheet.AddAction(confirmAction);
                 actionSheet.AddAction(cancelAction);
 
