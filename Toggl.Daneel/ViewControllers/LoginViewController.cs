@@ -54,7 +54,7 @@ namespace Toggl.Daneel.ViewControllers
             SignUpForFreeLabel.Text = Resources.SignUpTitle;
 
             NavigationController.NavigationBarHidden = true;
-            ((OnePasswordServiceIos)ViewModel.PasswordManagerService).SetSourceView(PasswordManagerButton);
+            IosDependencyContainer.Instance.OnePasswordService.SetSourceView(PasswordManagerButton);
             PasswordManagerButton.Hidden = !ViewModel.IsPasswordManagerAvailable;
 
             UIKeyboard.Notifications.ObserveWillShow(KeyboardWillShow);
