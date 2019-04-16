@@ -5,9 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
-using MvvmCross.Navigation;
-using MvvmCross.ViewModels;
-using MvvmCross.UI;
+using Toggl.Core.UI.Navigation;
 using Toggl.Core.Analytics;
 using Toggl.Core.UI.Extensions;
 using Toggl.Core.Services;
@@ -15,12 +13,12 @@ using Toggl.Shared;
 using Toggl.Shared.Extensions;
 using Toggl.Storage.Settings;
 using Math = System.Math;
-using Color = Toggl.Core.UI.Helper.Color;
+using Colors = Toggl.Core.UI.Helper.Colors;
 
 namespace Toggl.Core.UI.ViewModels
 {
     [Preserve(AllMembers = true)]
-    public sealed class OnboardingViewModel : MvxViewModel
+    public sealed class OnboardingViewModel : ViewModel
     {
         public const int TrackPage = 0;
         public const int MostUsedPage = 1;
@@ -33,16 +31,16 @@ namespace Toggl.Core.UI.ViewModels
             nameof(ReportsPage)
         };
 
-        private static readonly (MvxColor BackgroundColor, MvxColor BorderColor)[] pageInfo =
+        private static readonly (Color BackgroundColor, Color BorderColor)[] pageInfo =
         {
-            (Color.Onboarding.TrackPageBackgroundColor, Color.Onboarding.TrackPageBorderColor),
-            (Color.Onboarding.LogPageBackgroundColor, Color.Onboarding.LogPageBorderColor),
-            (Color.Onboarding.ReportsPageBackgroundColor, Color.Onboarding.ReportsPageBorderColor)
+            (Colors.Onboarding.TrackPageBackgroundColor, Colors.Onboarding.TrackPageBorderColor),
+            (Colors.Onboarding.LogPageBackgroundColor, Colors.Onboarding.LogPageBorderColor),
+            (Colors.Onboarding.ReportsPageBackgroundColor, Colors.Onboarding.ReportsPageBorderColor)
         };
 
         private readonly IAnalyticsService analyticsService;
         private readonly IOnboardingStorage onboardingStorage;
-        private readonly IMvxNavigationService navigationService;
+        private readonly INavigationService navigationService;
         private readonly BehaviorSubject<int> currentPage = new BehaviorSubject<int>(0);
         private readonly bool[] pagesVisited = new bool[pageInfo.Length];
         private bool visitedAllPages => pagesVisited.All(CommonFunctions.Identity);
@@ -53,8 +51,8 @@ namespace Toggl.Core.UI.ViewModels
         public IObservable<bool> IsSummaryPage { get; }
         public IObservable<bool> IsFirstPage { get; }
         public IObservable<bool> IsLastPage { get; }
-        public IObservable<MvxColor> BorderColor { get; }
-        public IObservable<MvxColor> BackgroundColor { get; }
+        public IObservable<Color> BorderColor { get; }
+        public IObservable<Color> BackgroundColor { get; }
 
         public UIAction SkipOnboarding { get; }
         public UIAction GoToNextPage { get; }
@@ -63,7 +61,7 @@ namespace Toggl.Core.UI.ViewModels
         public int NumberOfPages => pageInfo.Length;
 
         public OnboardingViewModel(
-            IMvxNavigationService navigationService,
+            INavigationService navigationService,
             IOnboardingStorage onboardingStorage,
             IAnalyticsService analyticsService,
             IRxActionFactory rxActionFactory,
