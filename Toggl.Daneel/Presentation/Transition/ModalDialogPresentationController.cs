@@ -55,6 +55,7 @@ namespace Toggl.Daneel.Presentation.Transition
         {
             PresentedView.Layer.CornerRadius = 8;
             dimmingView.Frame = ContainerView.Bounds;
+            PresentedView.Frame = FrameOfPresentedViewInContainerView;
         }
 
         public override CGSize GetSizeForChildContentContainer(IUIContentContainer contentContainer, CGSize parentContainerSize)
@@ -71,7 +72,7 @@ namespace Toggl.Daneel.Presentation.Transition
                     ? PresentedViewController.PreferredContentSize.Height
                     : iPadMaxHeight;
 
-                var height = Max(iPadMinHeightWithoutKeyboard, preferredContentHeight);
+                var height = preferredContentHeight;
                 var width = Min(iPadMaxWidth, parentContainerSize.Width);
 
                 height -= iPadStackModalViewSpacing * levelsOfModalViews();
