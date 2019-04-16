@@ -4,8 +4,8 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using AgileBits;
 using Foundation;
-using Toggl.Foundation.MvvmCross.Services;
-using Toggl.Multivac;
+using Toggl.Core.UI.Services;
+using Toggl.Shared;
 using LoginHandler = AgileBits.OnePasswordLoginDictionaryCompletionBlock;
 
 namespace Toggl.Daneel.Services
