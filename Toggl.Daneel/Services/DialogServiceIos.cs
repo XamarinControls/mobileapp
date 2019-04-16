@@ -71,11 +71,7 @@ namespace Toggl.Daneel.Services
                     preferredStyle: UIAlertControllerStyle.ActionSheet
                 );
 
-                var actionStyleForCancel = UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad
-                    ? UIAlertActionStyle.Default
-                    : UIAlertActionStyle.Cancel;
-
-                var cancelAction = UIAlertAction.Create(cancelText, actionStyleForCancel, _ =>
+                var cancelAction = UIAlertAction.Create(cancelText, UIAlertActionStyle.Cancel, _ =>
                 {
                     observer.OnNext(false);
                     observer.OnCompleted();
@@ -89,7 +85,7 @@ namespace Toggl.Daneel.Services
 
                 if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
                 {
-                    var extraCancelAction = UIAlertAction.Create(cancelText, UIAlertActionStyle.Cancel, _ =>
+                    var extraCancelAction = UIAlertAction.Create(cancelText, UIAlertActionStyle.Default, _ =>
                     {
                         observer.OnNext(false);
                         observer.OnCompleted();
